@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.Web.Http;
 using MyStore.Database;
 using MyStore.Repository.Interface;
 using MyStoreApp.Models;
@@ -10,6 +11,8 @@ using System.Web.Http.Description;
 
 namespace MyStoreApp.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     [RoutePrefix("api/product")]
     public class ProductController : ApiController
     {
@@ -59,6 +62,7 @@ namespace MyStoreApp.Controllers
         }
 
         // GET: api/product/search/xs
+        [MapToApiVersion("1.1")]
         [Route("search/{name}")]
         [HttpGet]
         public IHttpActionResult SearchByName(string name)
