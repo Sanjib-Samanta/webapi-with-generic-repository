@@ -1,6 +1,8 @@
 using MyStore.Database;
 using MyStore.Repository.Interface;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyStoreApp.Repository
 {
@@ -23,9 +25,10 @@ namespace MyStoreApp.Repository
         {
             DbFactory = dbFactory;
         }
-        public IQueryable<T> GetAll()
+        public async Task<IQueryable<T>> GetAll()
         {
-            return DbContext.Set<T>();
+            var result =  await DbContext.Set<T>().ToListAsync();
+            return result.AsQueryable();
         }
 
         public T GetById<TId>(TId id)

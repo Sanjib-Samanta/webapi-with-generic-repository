@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 namespace MyStoreApp.Repository
 {
     public class ProductMappingProfile : Profile  
-        
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductMappingProfile" /> class.
+        /// </summary>
         public ProductMappingProfile()
         {
             CreateMap<Product, ProductModel>().ReverseMap();

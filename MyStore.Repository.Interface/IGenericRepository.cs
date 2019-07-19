@@ -1,10 +1,11 @@
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyStore.Repository.Interface
 {
     public interface IGenericRepository<T> where T : class
     {
-        IQueryable<T> GetAll();
+        Task<IQueryable<T>> GetAll();
 
         T GetById<TId>(TId id);
 

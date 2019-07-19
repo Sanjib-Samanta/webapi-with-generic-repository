@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Threading.Tasks;
 
 namespace MyStoreApp.Controllers
 {
@@ -26,12 +27,12 @@ namespace MyStoreApp.Controllers
         }
 
         // GET: api/product
-        public IHttpActionResult GetProducts()
+        public async Task<IHttpActionResult> GetProducts()
         {
             try
             {
-                var products = _mapper.Map<IEnumerable<ProductModel>>(_productRepository.GetAll());
-                return Ok(products);
+                var products = await _productRepository.GetAll();
+                return Ok(_mapper.Map<IEnumerable<ProductModel>>(products));
             }
             catch (Exception ex)
             {
@@ -39,8 +40,9 @@ namespace MyStoreApp.Controllers
             }
         }
 
+
         // GET: api/product/a012c714-ef16-421c-8a45-0fd50352b000
-        [ResponseType(typeof(Product))]
+        [ResponseType(typeof(ProductModel))]
         [Route("{id}")]
         [HttpGet]
         public IHttpActionResult GetProduct(Guid id)
@@ -65,13 +67,14 @@ namespace MyStoreApp.Controllers
         [MapToApiVersion("1.1")]
         [Route("search/{name}")]
         [HttpGet]
-        public IHttpActionResult SearchByName(string name)
+        public async Task<IHttpActionResult> SearchByName(string name)
         {
             try
             {
-                var products = _mapper.Map<IEnumerable<ProductModel>>(_productRepository.GetAll().Where(x => x.Name.Contains(name)));
-                
-                return Ok(products);
+                var products = await _productRepository.GetAll();
+                var result = _mapper.Map<IEnumerable<ProductModel>>(products.Where(p  => p.Name.ToLower().Contains(name.ToLower())));
+
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -79,7 +82,7 @@ namespace MyStoreApp.Controllers
             }
         }
 
-        
+
         [HttpPost]
         public IHttpActionResult Post(ProductModel productModel)
         {

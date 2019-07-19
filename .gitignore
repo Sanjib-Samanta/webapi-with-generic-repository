@@ -12,3 +12,7 @@
 /MyStoreApp.Repository/obj
 /packages
 /MyStoreApp/MyStoreApp.csproj.user
+/MyStore.MongoDB/bin/Debug
+/MyStore.MongoDB/obj/Debug
+/MyStore.Mongo.Repository/obj/Debug
+/MyStore.Mongo.Repository/bin/Debug

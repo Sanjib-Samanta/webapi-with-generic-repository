@@ -28,6 +28,7 @@ namespace MyStoreApp
                 .HasApiVersion(1, 0)
                 .HasApiVersion(1, 1)
                 .Action(m => m.Delete(default(Guid)));
+
             });
             // Web API routes
 
